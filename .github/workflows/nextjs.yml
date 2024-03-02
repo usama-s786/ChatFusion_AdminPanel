@@ -38,7 +38,7 @@ jobs:
           echo "manager=yarn" >> $GITHUB_OUTPUT
           echo "command=install" >> $GITHUB_OUTPUT
           echo "runner=yarn" >> $GITHUB_OUTPUT
-          elif [ -f "/home/runner/work/ChatFusion_AdminPanel/ChatFusion_AdminPanel/package.json" ]; then
+          elif [ -f "/home/runner/work/ChatFusion_AdminPanel/my-app/package.json" ]; then
           echo "manager=npm" >> $GITHUB_OUTPUT
           echo "command=ci" >> $GITHUB_OUTPUT
           echo "runner=npx --no-install" >> $GITHUB_OUTPUT
