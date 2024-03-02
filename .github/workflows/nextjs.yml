@@ -20,23 +20,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: 'npm'
           cache-dependency-path: 'my-app/package-lock.json'
           
-      - name: Install dependencies
-        run: npm ci
+      - run: npm ci
         working-directory: my-app
         
-      - name: Build the Next.js application
-        run: npm run build
+      - run: npm run build
         working-directory: my-app
         
-      - name: Upload the Next.js build output as an artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: github-pages
           path: my-app/out/
