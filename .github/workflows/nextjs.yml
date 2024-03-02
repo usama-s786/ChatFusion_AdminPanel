@@ -1,25 +1,15 @@
-# Sample workflow for building and deploying a Next.js site to GitHub Pages
-#
-# To get started with Next.js see: https://nextjs.org/docs/getting-started
-#
 name: Deploy Next.js site to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -28,57 +18,36 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: 'npm'
           cache-dependency-path: 'my-app/package-lock.json'
-
-      # Use this to cache the npm modules
-      - name: Cache npm dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            my-app/node_modules
-            my-app/*.lock
-          key: ${{ runner.os }}-node-${{ hashFiles('my-app/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install dependencies
-        run: npm ci
-        working-directory: my-app
-
-      - name: Build with Next.js
-        run: npm run build
+          
+      - run: npm ci
         working-directory: my-app
         
-      - name: Upload artifact for deployment
-        uses: actions/upload-artifact@v4
+      - run: npm run build
+        working-directory: my-app
+        
+      - uses: actions/upload-artifact@v4
         with:
-          name: github-pages 
-          path: my-app/out/ 
-
-
-  # Deployment job
-    deploy:
-      environment:
-        name: github-pages
-      runs-on: ubuntu-latest
-      needs: build
-      steps:
-        - name: Deploy to GitHub Pages
-          uses: actions/deploy-pages@v4
-          with:
-            token: ${{ secrets.GITHUB_TOKEN }}
-            artifact_name: github-pages
-            preview: false
-
-        - name: Output deployment URL
-          run: echo "Deployment URL: ${{ steps.deployment.outputs.page_url }}"
-
-
+          name: github-pages
+          path: my-app/out/
+          
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: github-pages
+          path: out
+          
+      - uses: actions/deploy-pages@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifact_name: github-pages
+          preview: false
