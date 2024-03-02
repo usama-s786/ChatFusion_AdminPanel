@@ -53,6 +53,21 @@ jobs:
         run: npm ci
         working-directory: my-app
 
+      - name: Build with Next.js
+        run: npm run build
+        working-directory: my-app
+        
+      - name: Static HTML export with Next.js
+        run: npm run export
+        working-directory: my-app
+        
+      - name: Upload artifact for deployment
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-pages 
+          path: my-app/out/ 
+
+
   # Deployment job
   deploy:
     environment:
