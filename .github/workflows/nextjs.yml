@@ -34,7 +34,7 @@ jobs:
       - name: Detect package manager
         id: detect-package-manager
         run: |
-          if [ -f "/home/runner/work/ChatFusion_AdminPanel/ChatFusion_AdminPanel/yarn.lock" ]; then
+          if [ -f "/home/runner/work/ChatFusion_AdminPanel/my-app/yarn.lock" ]; then
           echo "manager=yarn" >> $GITHUB_OUTPUT
           echo "command=install" >> $GITHUB_OUTPUT
           echo "runner=yarn" >> $GITHUB_OUTPUT
