@@ -45,12 +45,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Download the Next.js build output artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: github-pages
-          path: out
-          
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
         with:
