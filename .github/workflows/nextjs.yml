@@ -32,8 +32,8 @@ jobs:
         run: npm ci
         working-directory: my-app
         
-      - name: Build the Next.js application
-        run: npm run build
+      - name: Build and Export the Next.js application
+        run: npm run export
         working-directory: my-app
 
       - name: List build directory contents (Diagnostic Step)
