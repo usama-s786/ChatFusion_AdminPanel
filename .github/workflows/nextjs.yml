@@ -36,8 +36,12 @@ jobs:
         run: npm run build
         working-directory: my-app
 
-      - name: List output directory contents
-        run: ls -l my-app/out/
+      - name: List build directory contents (Diagnostic Step)
+        run: ls -la
+        working-directory: my-app
+
+      - name: List output directory contents (Diagnostic Step)
+        run: ls -la out/
         working-directory: my-app
 
         
